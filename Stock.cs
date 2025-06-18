@@ -6,39 +6,75 @@ using System.Threading.Tasks;
 
 class Stock
 {
-     static async Task Main()
+     static async Task Main(string[] args)
      {
-          string url = "https://brapi.dev/api/quote/PETR4";
+          if (args.Length < 3)
+          {
+               Console.WriteLine("Por favor, forneça os parâmetros corretamente.");
+               return;
+          }
+
+          // Passando a ação de acordo com o argumento
+          string url = $"https://brapi.dev/api/quote/{args[0]}";
           string token = "6sw4VV4yxYYQfy3QZoqwCf";
 
-     using (HttpClient client = new HttpClient())
-     {
-          client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+          // Declarando as variáveis para venda e compra
+          double venda, compra;
 
-          try
+          // Tentando converter os parâmetros para valores double
+          if (!double.TryParse(args[1], out venda))
           {
-               HttpResponseMessage response = await client.GetAsync(url);
-               response.EnsureSuccessStatusCode();
+               Console.WriteLine("Erro: valor de venda inválido.");
+               return;
+          }
 
-               string json = await response.Content.ReadAsStringAsync();
+          if (!double.TryParse(args[2], out compra))
+          {
+               Console.WriteLine("Erro: valor de compra inválido.");
+               return;
+          }
 
-               var options = new JsonSerializerOptions
+          using (HttpClient client = new HttpClient())
+          {
+               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+               try
                {
-                    PropertyNameCaseInsensitive = true
-               };
+                    HttpResponseMessage response = await client.GetAsync(url);
+                    response.EnsureSuccessStatusCode();
 
-               ApiResponse apiResponse = JsonSerializer.Deserialize<ApiResponse>(json, options);
+                    string json = await response.Content.ReadAsStringAsync();
 
-               if (apiResponse?.Results != null && apiResponse.Results.Count > 0)
+                    var options = new JsonSerializerOptions
+                    {
+                         PropertyNameCaseInsensitive = true
+                    };
+
+                    ApiResponse apiResponse = JsonSerializer.Deserialize<ApiResponse>(json, options);
+
+                    if (apiResponse?.Results != null && apiResponse.Results.Count > 0)
+                    {
+                         var stock = apiResponse.Results[0];
+                         
+                         // Comparando stock.RegularMarketPrice com venda e compra
+                         if (stock.RegularMarketPrice < venda)
+                         {
+                              Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, venda imediatamente!");
+                         }
+                         else if (stock.RegularMarketPrice > compra)
+                         {
+                              Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, compre-o imediatamente!");
+                         }
+                         else
+                         {
+                              Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, segure!!");
+                         }
+                    }
+               }
+               catch (HttpRequestException e)
                {
-                    var stock = apiResponse.Results[0];
-                    Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}");
+                    Console.WriteLine($"Erro: {e.Message}");
                }
           }
-          catch (HttpRequestException e)
-          {
-               Console.WriteLine($"Erro: {e.Message}");
-          }
      }
-}
 }
