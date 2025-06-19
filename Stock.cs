@@ -3,6 +3,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Threading;
 
 class Stock
 {
@@ -16,84 +17,85 @@ class Stock
 
           while (true)
           {
-                // Passando a ação de acordo com o argumento
-          string url = $"https://brapi.dev/api/quote/{args[0]}";
-          string token = "6sw4VV4yxYYQfy3QZoqwCf";
+               // Passando a ação de acordo com o argumento
+               string url = $"https://brapi.dev/api/quote/{args[0]}";
+               string token = "6sw4VV4yxYYQfy3QZoqwCf";
 
-          string smtpServer = "smtp.gmail.com";
-          int smtpPort = 587; // Geralmente 587 para envio com STARTTLS ou 465 para SSL
-          string smtpUser = "luiz.mendescastro@gmail.com";
-          string smtpPassword = "teste ";
-          string from = "luiz.mendescastro@gmail.com";
-          string to = "noemicho14@gmail.com";
+               string smtpServer = "smtp.gmail.com";
+               int smtpPort = 587; // Geralmente 587 para envio com STARTTLS ou 465 para SSL
+               string smtpUser = "luiz.mendescastro@gmail.com"; //Usuário smtp
+               string smtpPassword = "teste"; //Senha do email
+               string from = "luiz.mendescastro@gmail.com"; // Email que enviará a mensagem
+               string to = "luiz.mendescastro@gmail.com"; // Email que receberá a mensagem
 
-          EmailSender emailSender = new EmailSender(smtpServer, smtpPort, smtpUser, smtpPassword);
+               EmailSender emailSender = new EmailSender(smtpServer, smtpPort, smtpUser, smtpPassword);
 
-          // Declarando as variáveis para venda e compra
+               // Declarando as variáveis para venda e compra
                double venda, compra;
 
-          // Tentando converter os parâmetros para valores double
-          if (!double.TryParse(args[1], out venda))
-          {
-               Console.WriteLine("Erro: valor de venda inválido.");
-               return;
-          }
-
-          if (!double.TryParse(args[2], out compra))
-          {
-               Console.WriteLine("Erro: valor de compra inválido.");
-               return;
-          }
-
-          using (HttpClient client = new HttpClient())
-          {
-               client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
-               try
+               // Tentando converter os parâmetros para valores double
+               if (!double.TryParse(args[1], out venda))
                {
-                    HttpResponseMessage response = await client.GetAsync(url);
-                    response.EnsureSuccessStatusCode();
+                    Console.WriteLine("Erro: valor de venda inválido.");
+                    return;
+               }
 
-                    string json = await response.Content.ReadAsStringAsync();
+               if (!double.TryParse(args[2], out compra))
+               {
+                    Console.WriteLine("Erro: valor de compra inválido.");
+                    return;
+               }
 
-                    var options = new JsonSerializerOptions
+               using (HttpClient client = new HttpClient())
+               {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                    try
                     {
-                         PropertyNameCaseInsensitive = true
-                    };
+                         HttpResponseMessage response = await client.GetAsync(url);
+                         response.EnsureSuccessStatusCode();
 
-                    ApiResponse apiResponse = JsonSerializer.Deserialize<ApiResponse>(json, options);
+                         string json = await response.Content.ReadAsStringAsync();
 
-                    if (apiResponse?.Results != null && apiResponse.Results.Count > 0)
-                    {
-                         var stock = apiResponse.Results[0];
+                         var options = new JsonSerializerOptions
+                         {
+                              PropertyNameCaseInsensitive = true
+                         };
 
-                         // Comparando stock.RegularMarketPrice com venda e compra
-                         if (stock.RegularMarketPrice < venda)
+                         ApiResponse apiResponse = JsonSerializer.Deserialize<ApiResponse>(json, options);
+
+                         if (apiResponse?.Results != null && apiResponse.Results.Count > 0)
                          {
-                              string subject = $"Relatório {args[0]} - Venda";
-                              string body = $"Atenção! O(a) {args[0]} está sendo cotado à {stock.RegularMarketPrice} neste exato momento! É recomendável que você venda e aproveite o lucro!.";
-                              Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, venda imediatamente!");
-                              emailSender.SendEmail(from, to, subject, body);
-                         }
-                         else if (stock.RegularMarketPrice > compra)
-                         {
-                              string subject = $"Relatório {args[0]} - Compra";
-                              string body = $"Atenção! O(a) {args[0]} está sendo cotado à {stock.RegularMarketPrice} neste exato momento! É recomendável que você compre e aproveite o desconto!.";
-                              Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, compre-o imediatamente!");
-                              emailSender.SendEmail(from, to, subject, body);
-                         }
-                         else
-                         {
-                              Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, segure!!");
+                              var stock = apiResponse.Results[0];
+
+                              // Comparando stock.RegularMarketPrice com venda e compra
+                              if (stock.RegularMarketPrice < venda)
+                              {
+                                   string subject = $"Relatório {args[0]} - Venda";
+                                   string body = $"Atenção! O(a) {args[0]} está sendo cotado à {stock.RegularMarketPrice} neste exato momento! É recomendável que você venda e aproveite o lucro!.";
+                                   Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, venda imediatamente!");
+                                   emailSender.SendEmail(from, to, subject, body);
+                              }
+                              else if (stock.RegularMarketPrice > compra)
+                              {
+                                   string subject = $"Relatório {args[0]} - Compra";
+                                   string body = $"Atenção! O(a) {args[0]} está sendo cotado à {stock.RegularMarketPrice} neste exato momento! É recomendável que você compre e aproveite o desconto!.";
+                                   Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, compre-o imediatamente!");
+                                   emailSender.SendEmail(from, to, subject, body);
+                              }
+                              else
+                              {
+                                   Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, segure!!");
+                              }
                          }
                     }
+                    catch (HttpRequestException e)
+                    {
+                         Console.WriteLine($"Erro: {e.Message}");
+                    }
                }
-               catch (HttpRequestException e)
-               {
-                    Console.WriteLine($"Erro: {e.Message}");
-               }
+               Thread.Sleep(1000*60*2);
           }
      }
-          }
 
 }
