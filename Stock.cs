@@ -18,6 +18,16 @@ class Stock
           string url = $"https://brapi.dev/api/quote/{args[0]}";
           string token = "6sw4VV4yxYYQfy3QZoqwCf";
 
+          string smtpServer = "smtp.gmail.com";
+          int smtpPort = 587; // Geralmente 587 para envio com STARTTLS ou 465 para SSL
+          string smtpUser = "luiz.mendescastro@gmail.com";
+          string smtpPassword = "teste";
+
+          EmailSender emailSender = new EmailSender(smtpServer, smtpPort, smtpUser, smtpPassword);
+
+          string from = "luiz.mendescastro@gmail.com";
+          string to = "luiz.mendescastro@gmail.com";
+          
           // Declarando as variáveis para venda e compra
           double venda, compra;
 
@@ -55,15 +65,21 @@ class Stock
                     if (apiResponse?.Results != null && apiResponse.Results.Count > 0)
                     {
                          var stock = apiResponse.Results[0];
-                         
+
                          // Comparando stock.RegularMarketPrice com venda e compra
                          if (stock.RegularMarketPrice < venda)
                          {
+                              string subject = "Relatório {args[0]} - Venda";
+                              string body = "Atenção! O(a) {args[0]} está sendo cotado à {stock.RegularMarketPrice} neste exato momento! É recomendável que você venda e aproveite o lucro!.";
                               Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, venda imediatamente!");
+                              emailSender.SendEmail(from, to, subject, body);
                          }
                          else if (stock.RegularMarketPrice > compra)
                          {
+                              string subject = "Relatório {args[0]} - Compra";
+                              string body = "Atenção! O(a) {args[0]} está sendo cotado à {stock.RegularMarketPrice} neste exato momento! É recomendável que você compre e aproveite o desconto!.";
                               Console.WriteLine($"Ação: {stock.Symbol}, Preço Atual: {stock.RegularMarketPrice}, compre-o imediatamente!");
+                              emailSender.SendEmail(from, to, subject, body);
                          }
                          else
                          {
