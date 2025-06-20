@@ -15,25 +15,28 @@ class Stock
                return;
           }
 
+          dotenv.net.DotEnv.Load();
+
           while (true)
           {
-               // Passando a ação de acordo com o argumento
-               string url = $"https://brapi.dev/api/quote/{args[0]}";
-               string token = "6sw4VV4yxYYQfy3QZoqwCf";
+               string smtpServer = Environment.GetEnvironmentVariable("SMTP_SERVER");
+               string smtpPortEnv = Environment.GetEnvironmentVariable("SMTP_PORT");
+               string smtpUser = Environment.GetEnvironmentVariable("SMTP_USER");
+               string smtpPassword = Environment.GetEnvironmentVariable("SMTP_PASSWORD");
+               string from = Environment.GetEnvironmentVariable("FROM");
+               string to = Environment.GetEnvironmentVariable("TO");
 
-               string smtpServer = "smtp.gmail.com";
-               int smtpPort = 587; // Geralmente 587 para envio com STARTTLS ou 465 para SSL
-               string smtpUser = "luiz.mendescastro@gmail.com"; //Usuário smtp
-               string smtpPassword = "teste"; //Senha do email
-               string from = "luiz.mendescastro@gmail.com"; // Email que enviará a mensagem
-               string to = "luiz.mendescastro@gmail.com"; // Email que receberá a mensagem
+               // Calculando a data de ontem
+               string lastWeek = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
+               
 
-               EmailSender emailSender = new EmailSender(smtpServer, smtpPort, smtpUser, smtpPassword);
+               string ticker = args[0];
+               string token = "6sw4VV4yxYYQfy3QZoqwCf"; // Insira seu token aqui
 
-               // Declarando as variáveis para venda e compra
+               EmailSender emailSender = new EmailSender(smtpServer, int.Parse(smtpPortEnv), smtpUser, smtpPassword);
+
                double venda, compra;
 
-               // Tentando converter os parâmetros para valores double
                if (!double.TryParse(args[1], out venda))
                {
                     Console.WriteLine("Erro: valor de venda inválido.");
@@ -46,16 +49,29 @@ class Stock
                     return;
                }
 
+               string range = "1mo"; // Última semana
+               string interval = "1d"; // Intervalo diário
+               string urlToday = $"https://brapi.dev/api/quote/{ticker}?range={range}&interval={interval}";
+
+
                using (HttpClient client = new HttpClient())
                {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
                     try
                     {
-                         HttpResponseMessage response = await client.GetAsync(url);
+                         HttpResponseMessage response = await client.GetAsync(urlToday);
                          response.EnsureSuccessStatusCode();
 
                          string json = await response.Content.ReadAsStringAsync();
+
+                         // Verificando se a resposta começa com '<' (indicando HTML)
+                         if (json.StartsWith("<"))
+                         {
+                              Console.WriteLine("Erro: a resposta da API não é um JSON válido. A resposta pode ser HTML.");
+                              Console.WriteLine($"Resposta da API: {json.Substring(0, Math.Min(1000, json.Length))}"); // Exibe até 1000 caracteres da resposta
+                              return;
+                         }
 
                          var options = new JsonSerializerOptions
                          {
@@ -68,7 +84,8 @@ class Stock
                          {
                               var stock = apiResponse.Results[0];
 
-                              // Comparando stock.RegularMarketPrice com venda e compra
+                              //Console.WriteLine(json);
+
                               if (stock.RegularMarketPrice < venda)
                               {
                                    string subject = $"Relatório {args[0]} - Venda";
@@ -94,8 +111,8 @@ class Stock
                          Console.WriteLine($"Erro: {e.Message}");
                     }
                }
-               Thread.Sleep(1000*60*2);
+
+               await Task.Delay(1000 * 60 * 2); // Aguarda 2 minutos
           }
      }
-
 }

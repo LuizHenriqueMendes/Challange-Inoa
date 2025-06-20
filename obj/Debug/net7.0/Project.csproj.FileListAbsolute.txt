@@ -13,3 +13,11 @@ C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\ob
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net7.0\Project.pdb
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net7.0\Project.genruntimeconfig.cache
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net7.0\ref\Project.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net7.0\CsvHelper.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net7.0\dotenv.net.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net7.0\Flurl.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net7.0\Flurl.Http.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net7.0\YahooFinanceApi.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net7.0\Project.csproj.AssemblyReference.cache
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net7.0\Project.csproj.Up2Date

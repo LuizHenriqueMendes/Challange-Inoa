@@ -7,4 +7,9 @@
           <LangVersion>latest</LangVersion>
      </PropertyGroup>
 
+     <ItemGroup>
+       <PackageReference Include="dotenv.net" Version="3.2.1" />
+       <PackageReference Include="YahooFinanceApi" Version="2.3.3" />
+     </ItemGroup>
+
 </Project>
