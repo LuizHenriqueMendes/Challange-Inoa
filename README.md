@@ -5,7 +5,6 @@ Desafio para o Processo Seletivo da Inoa
 Este repositório tem como objetivo principal estudar e treinar a utilização de APIs, como fazer a requisição, utilizar o DTO e, em seguida, receber, tratar e analisar os dados recebidos.
 
 O desafio surgiu como parte do Processo Seletivo para a INOA, empresa de Desenvolvimentos de Sistemas voltados para o mercado financeiro. Segue o enunciado do desafio:
-
 O objetivo do sistema é avisar, via e-mail, caso a cotação de um ativo da B3 caia mais do que certo nível, ou suba acima de outro.
 
 O programa deve ser uma aplicação de console (não há necessidade de interface gráfica).
@@ -34,17 +33,21 @@ O repositório é composto por:
      2. ApiResponse.cs
      3. SendEmail.cs
      4. Project.csproj
+     5. .env
 
 Para que o código execute, basta seguir o seguinte passo a passo:
 
      1. Verifique se as extensões estão corretamente baixadas;
-     2. Dentro do Stock.cs, modifique as linhas:
-          - string smtpUser = " "; // Adicione o email do SMTP
-          - string smtpPassword = " "; // Adicione a senha do usuário
-          - string from = " "; // Adicione o email que enviará o email
-          - string to = " ";  // Adicione o email que receberá o email
+     2. Verifique se o .NET está baixado na versão 8.0
+     3. Dentro do .env, modifique as linhas:
+          - SMTP_SERVER= // Adicione o email do SMTP (smtp.gmail.com)
+          - SMTP_PORT= //Adicione a porta do SMTP (Normalmente 587)
+          - SMTP_USER= // Adicione o usuário (Provavelmente o mesmo email que enviará o email)
+          - SMTP_PASSWORD=  // Adicione a senha do usuário
+          - FROM= // Adicione o email que enviará o email
+          - TO= // Adicione o email que receberá a mensagem
 
 
-utilizar o seguinte comando no cmd:
+Utilizar o seguinte comando no cmd:
 > dotnet run [STOCK] [VALOR_DE_VENDA] [VALOR_DE_COMPRA]
 

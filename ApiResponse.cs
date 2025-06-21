@@ -6,6 +6,7 @@ using System.Text.Json.Serialization;
 
 internal class HistoricalPrice
 {
+     public long Date { get; set; }
      [JsonPropertyName("close")]
      public double Close { get; set; }
 }
