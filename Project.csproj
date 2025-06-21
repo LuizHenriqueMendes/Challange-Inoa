@@ -9,6 +9,7 @@
 
      <ItemGroup>
           <PackageReference Include="dotenv.net" Version="3.2.1" />
+          <PackageReference Include="ScottPlot" Version="5.0.20" />
      </ItemGroup>
 
 </Project>

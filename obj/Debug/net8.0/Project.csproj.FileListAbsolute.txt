@@ -3,12 +3,7 @@ C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bi
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\Project.runtimeconfig.json
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\Project.dll
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\Project.pdb
-C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\CsvHelper.dll
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\dotenv.net.dll
-C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\Flurl.dll
-C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\Flurl.Http.dll
-C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\Newtonsoft.Json.dll
-C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\YahooFinanceApi.dll
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net8.0\Project.csproj.AssemblyReference.cache
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net8.0\Project.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net8.0\Project.AssemblyInfoInputs.cache
@@ -21,3 +16,9 @@ C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\ob
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net8.0\Project.pdb
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net8.0\Project.genruntimeconfig.cache
 C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\obj\Debug\net8.0\ref\Project.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\ScottPlot.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\SkiaSharp.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\runtimes\osx\native\libSkiaSharp.dylib
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\runtimes\win-arm64\native\libSkiaSharp.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\runtimes\win-x64\native\libSkiaSharp.dll
+C:\Users\Pichau\OneDrive\Área de Trabalho\INOA\Inoa Challenge\Challange-Inoa\bin\Debug\net8.0\runtimes\win-x86\native\libSkiaSharp.dll

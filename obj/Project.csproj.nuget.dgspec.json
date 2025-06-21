@@ -46,6 +46,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "ScottPlot": {
+              "target": "Package",
+              "version": "[5.0.20, )"
+            },
             "dotenv.net": {
               "target": "Package",
               "version": "[3.2.1, )"

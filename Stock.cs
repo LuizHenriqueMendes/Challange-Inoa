@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Threading;
+using System.Collections.Generic;
 
 class MainProgram
 {
@@ -33,6 +34,8 @@ class MainProgram
 
                string url = $"https://brapi.dev/api/quote/{ticker}?range=3mo&interval=1d";
                string token = "6sw4VV4yxYYQfy3QZoqwCf";
+
+               
 
                EmailSender emailSender = new EmailSender(smtpServer, int.Parse(smtpPortEnv), smtpUser, smtpPassword);
 
@@ -114,28 +117,38 @@ class MainProgram
                                    Console.WriteLine("Sem dados para os últimos 7 dias.");
                               }
 
+                              var grafico = new GraphGen();
+                              double[] valores = historical.Select(x => x.Close).ToArray();
+                              string[] datas = historical.Select(x => DateTimeOffset.FromUnixTimeSeconds(x.Date).ToString("dd/MM")).ToArray();
+                              var anexos = grafico.Create(
+                                   valores,
+                                   datas,
+                                   $"Preço de Fechamento - {ticker}",
+                                   "./grafico_petr4.png"
+                              );
+
                               // Verificação de venda ou compra
                               if (stock.RegularMarketPrice < venda)
                               {
                                    string subject = $"Relatório {ticker} - Venda";
-                                   string parte1 = $"O ativo {ticker} está sendo cotado a {stock.RegularMarketPrice}. Recomendação: VENDA.\n";
-                                   string parte2 = $"Caso queira analisar de maneira mais profunda observe os dados do {ticker} nos últimos 7 dias, 30 dias e 3 meses e \n";
+                                   string parte1 = $"O ativo {ticker} está sendo cotado a {stock.RegularMarketPrice}. Recomendação: VENDA.\n\n";
+                                   string parte2 = $"Caso queira analisar de maneira mais profunda observe os dados do {ticker} nos últimos 7 dias, 30 dias e 3 meses:\n";
                                    string parte3 = $"07 dias  => Valor mínimo: {min7Days} ; Valor máximo: {max7Days} ; Média do período: {avg7Days}\n";
                                    string parte4 = $"30 dias  => Valor mínimo: {min30Days} ; Valor máximo: {max30Days} ; Média do período: {avg30Days}\n";
                                    string parte5 = $"03 meses => Valor mínimo: {min} ; Valor máximo: {max} ; Média do período: {avg}\n";
                                    string body = $"{parte1} {parte2} {parte3} {parte4} {parte5}";
-                                   emailSender.SendEmail(from, to, subject, body);
+                                   emailSender.SendEmail(from, to, subject, body, anexos);
                               }
                               else if (stock.RegularMarketPrice > compra)
                               {
                                    string subject = $"Relatório {ticker} - Compra";
-                                   string parte1 = $"O ativo {ticker} está sendo cotado a {stock.RegularMarketPrice}. Recomendação: VENDA.\n";
+                                   string parte1 = $"O ativo {ticker} está sendo cotado a {stock.RegularMarketPrice}. Recomendação: VENDA.\n\n";
                                    string parte2 = $"Caso queira analisar de maneira mais profunda observe os dados do {ticker} nos últimos 7 dias, 30 dias e 3 meses: \n";
                                    string parte3 = $"07 dias    => Valor mínimo: {min7Days} ; Valor máximo: {max7Days} ; Média do período: {avg7Days}\n";
                                    string parte4 = $"30 dias    => Valor mínimo: {min30Days} ; Valor máximo: {max30Days} ; Média do período: {avg30Days}\n";
                                    string parte5 = $"03 meses => Valor mínimo: {min} ; Valor máximo: {max} ; Média do período: {avg}\n";
                                    string body = $"{parte1} {parte2} {parte3} {parte4} {parte5}";
-                                   emailSender.SendEmail(from, to, subject, body);
+                                   emailSender.SendEmail(from, to, subject, body, anexos);
                               }
                               else
                               {

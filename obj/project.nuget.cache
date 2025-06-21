@@ -1,10 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "Ka6rpRI7k4Y=",
+  "dgSpecHash": "f3cjx8Xj7Bg=",
   "success": true,
   "projectFilePath": "C:\\Users\\Pichau\\OneDrive\\Área de Trabalho\\INOA\\Inoa Challenge\\Challange-Inoa\\Project.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Pichau\\.nuget\\packages\\dotenv.net\\3.2.1\\dotenv.net.3.2.1.nupkg.sha512"
+    "C:\\Users\\Pichau\\.nuget\\packages\\dotenv.net\\3.2.1\\dotenv.net.3.2.1.nupkg.sha512",
+    "C:\\Users\\Pichau\\.nuget\\packages\\scottplot\\5.0.20\\scottplot.5.0.20.nupkg.sha512",
+    "C:\\Users\\Pichau\\.nuget\\packages\\skiasharp\\2.88.7\\skiasharp.2.88.7.nupkg.sha512",
+    "C:\\Users\\Pichau\\.nuget\\packages\\skiasharp.nativeassets.macos\\2.88.7\\skiasharp.nativeassets.macos.2.88.7.nupkg.sha512",
+    "C:\\Users\\Pichau\\.nuget\\packages\\skiasharp.nativeassets.win32\\2.88.7\\skiasharp.nativeassets.win32.2.88.7.nupkg.sha512"
   ],
   "logs": []
 }

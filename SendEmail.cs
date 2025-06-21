@@ -25,7 +25,7 @@ class EmailSender
      
 
 
-          public void SendEmail(string from, string to, string subject, string body)
+          public void SendEmail(string from, string to, string subject, string body, List<string> attachments = null)
      {
           try
           {
@@ -38,6 +38,22 @@ class EmailSender
                     Credentials = new NetworkCredential(smtpUser, smtpPassword),
                     EnableSsl = true // Usar SSL para segurança
                };
+
+                // Adding attachments if they exist
+               if (attachments != null && attachments.Any())
+               {
+                    foreach (var attachmentPath in attachments)
+                    {
+                         if (File.Exists(attachmentPath))
+                         {
+                              mailMessage.Attachments.Add(new Attachment(attachmentPath));
+                         }
+                         else
+                         {
+                              Console.WriteLine($"Warning: Attachment file not found: {attachmentPath}");
+                         }
+                    }
+               }
 
                // Enviando o e-mail
                smtpClient.Send(mailMessage);
