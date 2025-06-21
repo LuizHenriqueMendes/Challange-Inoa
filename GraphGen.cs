@@ -5,36 +5,36 @@ using System.Linq;
 
 public class GraphGen
 {
-     public List<string> Create(double[] valores, string[] labelsX, string titulo, string caminhoArquivo)
+     public List<string> Create(double[] values, string[] dateLabels, string title, string filePath)
      {
-          if (valores == null || valores.Length == 0)
-               throw new ArgumentException("O array de valores não pode estar vazio.");
+          var plt = new Plot();
 
-          if (labelsX == null || labelsX.Length != valores.Length)
-               throw new ArgumentException("O tamanho dos labels do eixo X deve ser igual ao tamanho dos valores.");
+          int labelStep = Math.Max(1, values.Length / 15);     
+          double[] positions = Enumerable.Range(0, values.Length).Select(i => (double)i).ToArray();
 
-          var plt = new ScottPlot.Plot();
+          var barPlot = plt.Add.Bars(positions, values);
 
-          // Create a bar plot with positions (0, 1, 2, ...) and values
-          var bars = plt.Add.Bars(valores);
+          barPlot.Color = Colors.SteelBlue;
 
-          // Manually set X-axis tick positions and labels
-          plt.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(
-               positions: Enumerable.Range(0, labelsX.Length).Select(x => (double)x).ToArray(),
-               labels: labelsX
-          );
+          var ticks = new List<Tick>();
+          
+          for (int i = 0; i < dateLabels.Length; i += labelStep)
+          {
+               ticks.Add(new Tick(i, dateLabels[i]));
+          }
 
-          // Title and axis labels
-          plt.Title(titulo);
-          plt.YLabel("Valor");
+          plt.Axes.Bottom.TickGenerator = new ScottPlot.TickGenerators.NumericManual(ticks.ToArray());
+
+          plt.Axes.Bottom.TickLabelStyle.Rotation = 45;
+          plt.Axes.Bottom.TickLabelStyle.Alignment = Alignment.UpperCenter;
+          plt.Axes.Margins(bottom: 0.2);
+          
+          plt.Title(title);
+          plt.YLabel("Preço (R$)");
           plt.XLabel("Data");
 
-          // Adjust margins to prevent label cutoff
-          plt.Axes.Margins(bottom: 0.1);
-
-          // Save the image
-          plt.SavePng(caminhoArquivo, 800, 600);
-
-          return new List<string> { caminhoArquivo };
+          plt.SavePng(filePath, 1200, 600);
+          
+          return new List<string> { filePath };
      }
 }

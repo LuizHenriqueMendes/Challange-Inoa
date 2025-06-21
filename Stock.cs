@@ -117,15 +117,25 @@ class MainProgram
                                    Console.WriteLine("Sem dados para os últimos 7 dias.");
                               }
 
+                              int step = Math.Max(1, historical.Count / 15);
+
+                              var filteredHistorical = historical
+                                   .Where((x, i) => i % step == 0) // Take every nth item
+                                   .ToList();
+
+                              double[] valores = filteredHistorical.Select(x => x.Close).ToArray();
+                              string[] datas = filteredHistorical
+                                   .Select(x => DateTimeOffset.FromUnixTimeSeconds(x.Date).ToString("dd/MM"))
+                                   .ToArray();
+
                               var grafico = new GraphGen();
-                              double[] valores = historical.Select(x => x.Close).ToArray();
-                              string[] datas = historical.Select(x => DateTimeOffset.FromUnixTimeSeconds(x.Date).ToString("dd/MM")).ToArray();
                               var anexos = grafico.Create(
-                                   valores,
-                                   datas,
-                                   $"Preço de Fechamento - {ticker}",
-                                   "./grafico_petr4.png"
+                              valores,
+                              datas,
+                              $"Preço de Fechamento - {ticker}",
+                              "./grafico_petr4.png"
                               );
+
 
                               // Verificação de venda ou compra
                               if (stock.RegularMarketPrice < venda)
@@ -135,8 +145,9 @@ class MainProgram
                                    string parte2 = $"Caso queira analisar de maneira mais profunda observe os dados do {ticker} nos últimos 7 dias, 30 dias e 3 meses:\n";
                                    string parte3 = $"07 dias  => Valor mínimo: {min7Days} ; Valor máximo: {max7Days} ; Média do período: {avg7Days}\n";
                                    string parte4 = $"30 dias  => Valor mínimo: {min30Days} ; Valor máximo: {max30Days} ; Média do período: {avg30Days}\n";
-                                   string parte5 = $"03 meses => Valor mínimo: {min} ; Valor máximo: {max} ; Média do período: {avg}\n";
-                                   string body = $"{parte1} {parte2} {parte3} {parte4} {parte5}";
+                                   string parte5 = $"03 meses => Valor mínimo: {min} ; Valor máximo: {max} ; Média do período: {avg}\n\n";
+                                   string parte6 = $"Veja também um gráfico criado para melhor visualização dos preços do {ticker}ndesse período:";
+                                   string body = $"{parte1} {parte2} {parte3} {parte4} {parte5}, {parte6}";
                                    emailSender.SendEmail(from, to, subject, body, anexos);
                               }
                               else if (stock.RegularMarketPrice > compra)
@@ -146,8 +157,9 @@ class MainProgram
                                    string parte2 = $"Caso queira analisar de maneira mais profunda observe os dados do {ticker} nos últimos 7 dias, 30 dias e 3 meses: \n";
                                    string parte3 = $"07 dias    => Valor mínimo: {min7Days} ; Valor máximo: {max7Days} ; Média do período: {avg7Days}\n";
                                    string parte4 = $"30 dias    => Valor mínimo: {min30Days} ; Valor máximo: {max30Days} ; Média do período: {avg30Days}\n";
-                                   string parte5 = $"03 meses => Valor mínimo: {min} ; Valor máximo: {max} ; Média do período: {avg}\n";
-                                   string body = $"{parte1} {parte2} {parte3} {parte4} {parte5}";
+                                   string parte5 = $"03 meses => Valor mínimo: {min} ; Valor máximo: {max} ; Média do período: {avg}\n\n";
+                                   string parte6 = $"Veja também um gráfico criado para melhor visualização dos preços do {ticker}ndesse período:";
+                                   string body = $"{parte1} {parte2} {parte3} {parte4} {parte5}, {parte6}";
                                    emailSender.SendEmail(from, to, subject, body, anexos);
                               }
                               else

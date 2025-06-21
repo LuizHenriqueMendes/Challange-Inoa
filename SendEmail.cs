@@ -39,7 +39,7 @@ class EmailSender
                     EnableSsl = true // Usar SSL para segurança
                };
 
-                // Adding attachments if they exist
+               // Verificando se há anexos
                if (attachments != null && attachments.Any())
                {
                     foreach (var attachmentPath in attachments)

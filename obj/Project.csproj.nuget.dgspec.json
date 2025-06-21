@@ -48,7 +48,7 @@
           "dependencies": {
             "ScottPlot": {
               "target": "Package",
-              "version": "[5.0.20, )"
+              "version": "[5.0.55, )"
             },
             "dotenv.net": {
               "target": "Package",
