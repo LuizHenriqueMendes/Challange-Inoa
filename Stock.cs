@@ -146,7 +146,7 @@ class MainProgram
                                    string parte3 = $"07 dias  => Valor mínimo: {min7Days} ; Valor máximo: {max7Days} ; Média do período: {avg7Days}\n";
                                    string parte4 = $"30 dias  => Valor mínimo: {min30Days} ; Valor máximo: {max30Days} ; Média do período: {avg30Days}\n";
                                    string parte5 = $"03 meses => Valor mínimo: {min} ; Valor máximo: {max} ; Média do período: {avg}\n\n";
-                                   string parte6 = $"Veja também um gráfico criado para melhor visualização dos preços do {ticker}ndesse período:";
+                                   string parte6 = $"Veja também um gráfico criado para melhor visualização dos preços do {ticker} desse período:\n";
                                    string body = $"{parte1} {parte2} {parte3} {parte4} {parte5}, {parte6}";
                                    emailSender.SendEmail(from, to, subject, body, anexos);
                               }
@@ -158,7 +158,7 @@ class MainProgram
                                    string parte3 = $"07 dias    => Valor mínimo: {min7Days} ; Valor máximo: {max7Days} ; Média do período: {avg7Days}\n";
                                    string parte4 = $"30 dias    => Valor mínimo: {min30Days} ; Valor máximo: {max30Days} ; Média do período: {avg30Days}\n";
                                    string parte5 = $"03 meses => Valor mínimo: {min} ; Valor máximo: {max} ; Média do período: {avg}\n\n";
-                                   string parte6 = $"Veja também um gráfico criado para melhor visualização dos preços do {ticker}ndesse período:";
+                                   string parte6 = $"Veja também um gráfico criado para melhor visualização dos preços do {ticker} nesse período:";
                                    string body = $"{parte1} {parte2} {parte3} {parte4} {parte5}, {parte6}";
                                    emailSender.SendEmail(from, to, subject, body, anexos);
                               }
