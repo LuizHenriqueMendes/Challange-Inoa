@@ -1,4 +1,4 @@
-# Challange-Inoa
+# Challenge-Inoa
 Desafio para o Processo Seletivo da Inoa
 
 
@@ -33,12 +33,14 @@ O repositório é composto por:
      2. ApiResponse.cs
      3. SendEmail.cs
      4. Project.csproj
-     5. .env
+     5. GraphGen
+     6. .env
 
 Para que o código execute, basta seguir o seguinte passo a passo:
 
-     1. Verifique se as extensões estão corretamente baixadas;
-     2. Verifique se o .NET está baixado na versão 8.0
+     1. Verifique se o .NET está baixado na versão 8.0;
+     2. Verifique se as bibliotecas estão corretamente baixadas;
+          > dotnet restore
      3. Dentro do .env, modifique as linhas:
           - SMTP_SERVER= // Adicione o email do SMTP (smtp.gmail.com)
           - SMTP_PORT= //Adicione a porta do SMTP (Normalmente 587)
