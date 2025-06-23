@@ -27,18 +27,20 @@ O programa deve ficar continuamente monitorando a cotação do ativo enquanto es
 ============================================================================================================================
 
 
-O repositório é composto por:
+O repositório é composto principalmente, por:
 
      1. Stock.cs
      2. ApiResponse.cs
      3. SendEmail.cs
-     4. Project.csproj
+     4. GraphGen.cs
+     5. Project.csproj
      5. .env
 
 Para que o código execute, basta seguir o seguinte passo a passo:
 
-     1. Verifique se as extensões estão corretamente baixadas;
      2. Verifique se o .NET está baixado na versão 8.0
+     1. Verifique se as bibliotecas corretamente baixadas;
+          - utilize o comando: dotnet restore
      3. Dentro do .env, modifique as linhas:
           - SMTP_SERVER= // Adicione o email do SMTP (smtp.gmail.com)
           - SMTP_PORT= //Adicione a porta do SMTP (Normalmente 587)
@@ -51,3 +53,5 @@ Para que o código execute, basta seguir o seguinte passo a passo:
 Utilizar o seguinte comando no cmd:
 > dotnet run [STOCK] [VALOR_DE_VENDA] [VALOR_DE_COMPRA]
 
+obs: Caso tenha qualquer tipo de dúvida sobre como rodar o código ou algum problema encontrado, por favor entre em contato comigo através de: luiz.mendescastro@gmail.com
+Estarei mais do que disposto para melhorar este repositório e fazê-lo mais eficiente!
