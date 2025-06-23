@@ -1,4 +1,4 @@
-# Challange-Inoa
+# Challenge-Inoa
 Desafio para o Processo Seletivo da Inoa
 
 
