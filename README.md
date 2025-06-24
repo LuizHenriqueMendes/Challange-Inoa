@@ -51,13 +51,18 @@ Para que o código execute, basta seguir o seguinte passo a passo:
           - TO= // Adicione o email que receberá a mensagem
 
 (*) Caso utilize verificação em dois fatores:
+
      - acesse o link: https://myaccount.google.com/apppasswords?continue=https://myaccount.google.com/security?origin%3D3%26rapt%3DAEjHL4N0tUNUERiQuuK3uLgv0biNjLgcFt_6qoDl_GA8AHtw1OH-sQEg2st4rhu_oxI-DAF2CBb3DFJPKSCVbNFdJUb4tQlQ5klJrq1sbuPfiq0fdBLn9Zw&rapt=AEjHL4NYJkRwixB5gWi2tyh3sp8FR7-EQ0Iu0TcGgVKTqjH3AGX9lgC1hdmX4nkPUXETs1JqvZaiPhfmBoYzhVm7k1klwCBgJVn5MvFagGa7CUcWNBK6Y8Y
+     
      - Em seguida, escreva um nome para identificar qual será o app que usará a senha gerada e clique em "Criar";
+     
      - Copie o código e insira no campo "SMTP_PASSWORD" (sem remover os espaços);
 
 Utilizar o seguinte comando no cmd:
 > dotnet run [STOCK] [VALOR_DE_VENDA] [VALOR_DE_COMPRA]
+
 ex:
+
 > dotnet run PETR4 22.67 22.59
 
 obs: Caso tenha qualquer tipo de dúvida sobre como rodar o código ou algum problema encontrado, por favor entre em contato comigo através de: luiz.mendescastro@gmail.com
